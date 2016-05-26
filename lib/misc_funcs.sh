@@ -49,11 +49,13 @@ function load_config() {
 # Make the config vars from config_vars_to_export available at slug compile time.
 # Useful for compiled languages like Erlang and Elixir
 function export_config_vars() {
-  for config_var in ${config_vars_to_export[@]}; do
-    if [ -d $env_path ] && [ -f $env_path/${config_var} ]; then
-      export ${config_var}=$(cat $env_path/${config_var})
-    fi
-  done
+  if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+      echo "$e" &&
+      export "$e=$(cat $env_dir/$e)"
+      :
+    done
+  fi
 }
 
 function export_mix_env() {
