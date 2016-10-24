@@ -36,6 +36,7 @@ function load_config() {
     output_line "WARNING: elixir_buildpack.config wasn't found in the app"
     output_line "Using default config from Elixir buildpack"
   fi
+  elixir_app_root=$(cd ${build_path}/${relative_path} && pwd)
 
   output_line "Will use the following versions:"
   output_line "* Stack ${STACK}"

@@ -84,12 +84,13 @@ function backup_mix() {
 
 function install_hex() {
   output_section "Installing Hex"
+  cd $HOME
   mix local.hex --force
 }
 
 function install_rebar() {
   output_section "Installing rebar"
-
+  cd $HOME
   mix local.rebar --force
 }
 

@@ -15,9 +15,9 @@ build_path=$(cd $1 && pwd)
 cache_path=$(cd $2 && pwd)
 env_path=$(cd $3 && pwd)
 
-
 source ${build_pack_path}/lib/path_funcs.sh
 source ${build_pack_path}/lib/misc_funcs.sh
+
 source ${build_pack_path}/lib/erlang_funcs.sh
 source ${build_pack_path}/lib/elixir_funcs.sh
 source ${build_pack_path}/lib/app_funcs.sh
@@ -25,6 +25,7 @@ source ${build_pack_path}/lib/app_funcs.sh
 mkdir $(platform_tools_path)
 
 load_config
+
 export_config_vars
 export_mix_env
 

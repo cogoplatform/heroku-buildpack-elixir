@@ -1,11 +1,11 @@
 function restore_app() {
   if [ -d $(deps_backup_path) ]; then
-    cp -pR $(deps_backup_path) ${build_path}/deps
+    cp -pR $(deps_backup_path) ${elixir_app_root}/deps
   fi
 
   if [ $erlang_changed != true ] && [ $elixir_changed != true ]; then
     if [ -d $(build_backup_path) ]; then
-      cp -pR $(build_backup_path) ${build_path}/_build
+      cp -pR $(build_backup_path) ${elixir_app_root}/_build
     fi
   fi
 }
@@ -42,7 +42,7 @@ function app_dependencies() {
   local git_dir_value=$GIT_DIR
   unset GIT_DIR
 
-  cd $build_path
+  cd $elixir_app_root
   output_section "Fetching app dependencies with mix"
   mix deps.get --only $MIX_ENV || exit 1
 
@@ -55,8 +55,8 @@ function backup_app() {
   # Delete the previous backups
   rm -rf $(deps_backup_path) $(build_backup_path)
 
-  cp -pR ${build_path}/deps $(deps_backup_path)
-  cp -pR ${build_path}/_build $(build_backup_path)
+  cp -pR ${elixir_app_root}/deps $(deps_backup_path)
+  cp -pR ${elixir_app_root}/_build $(build_backup_path)
 }
 
 
@@ -64,7 +64,7 @@ function compile_app() {
   local git_dir_value=$GIT_DIR
   unset GIT_DIR
 
-  cd $build_path
+  cd $elixir_app_root
   output_section "Compiling"
   mix compile || exit 1
 
@@ -75,7 +75,7 @@ function compile_app() {
 }
 
 function post_compile_hook() {
-  cd $build_path
+  cd $elixir_app_root
 
   if [ -n "$post_compile" ]; then
     output_section "Executing post compile: $post_compile"
@@ -86,7 +86,7 @@ function post_compile_hook() {
 }
 
 function pre_compile_hook() {
-  cd $build_path
+  cd $elixir_app_root
 
   if [ -n "$pre_compile" ]; then
     output_section "Executing pre compile: $pre_compile"
