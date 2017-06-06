@@ -41,6 +41,9 @@ restore_mix
 install_hex
 install_rebar
 
+# install libreoffice
+sudo apt-get install unoconv libreoffice -qy
+
 pre_compile_hook
 
 restore_app
