@@ -66,7 +66,7 @@ function compile_app() {
 
   cd $elixir_app_root
   output_section "Compiling"
-  mix compile || exit 1
+  mix compile --force || exit 1
 
   mix deps.clean --unused
 
